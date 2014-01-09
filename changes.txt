@@ -1,6 +1,9 @@
 1.1-dev
 ----
-use webkitregionoversetchange event to trigger add/removal of pages.s
+changed name to pagination.js (as bookjs.net hasn't been updated and hans't been in a working state for too long)
+make work with Firefox flexbox
+make work with Safari 6.1/7.0
+use webkitregionoversetchange event to trigger add/removal of pages.
 
 1.0-dev
 ----
