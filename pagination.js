@@ -1461,7 +1461,7 @@
          * have been set and rawdiv has been filled with initial contents.
          */
         this.setStyle();
-        this.namedFlow = document.webkitGetNamedFlows()[this.name];
+        this.namedFlow = document.webkitGetNamedFlows().namedItem(this.name);
         this.addOrRemovePages();
         this.setupReflow();
         this.findAllTopfloats();
