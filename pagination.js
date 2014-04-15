@@ -261,6 +261,7 @@
         'autoStart': true,
         'numberPages': true,
         'divideContents': true,
+        'pagebreakSelector': '.pagination-pagebreak',
         'footnoteSelector': '.pagination-footnote',
         'topfloatSelector': '.pagination-topfloat',
         'marginnoteSelector': '.pagination-marginnote',
@@ -344,7 +345,9 @@
         /* Set style for the regions and pages used by pagination.js and add it
          * to the head of the DOM.
          */
-        var stylesheet = document.createElement('style'), footnoteSelector = pagination.config('footnoteSelector');
+        var stylesheet = document.createElement('style'), 
+            footnoteSelector = pagination.config('footnoteSelector'),
+            pagebreakSelector = pagination.config('pagebreakSelector');
         stylesheet.innerHTML =
             ".pagination-main-contents-container {display: -webkit-flex; " +
             "-webkit-flex-direction: column; display: flex; " +
@@ -370,7 +373,7 @@
             "\nimg {-webkit-region-break-before: always; " +
             "-webkit-region-break-after: always;}" +
             "\n.pagination-pagenumber, .pagination-header {position: absolute;}" +
-            "\n.pagination-pagebreak {-webkit-region-break-after: always;}" +
+            "\n"+pagebreakSelector+" {-webkit-region-break-after: always;}" +
             "\n.pagination-simple {height: auto; position:relative;}" +
             "\n.pagination-page {margin-left:auto; margin-right:auto;}" +
             "\n.pagination-marginnote-item {position:absolute;}" +
