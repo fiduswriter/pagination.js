@@ -1,6 +1,6 @@
 /*!
  * pagination.js
- * Copyright 2012-13  Steven Levithan, and Johannes Wilm. Freely available
+ * Copyright 2012-13 Steven Levithan, and Johannes Wilm. Freely available
  * under the AGPL. For further details see LICENSE.txt
  *
  * Using this library you can turn an HTML element into a series
@@ -344,7 +344,7 @@
         /* Set style for the regions and pages used by pagination.js and add it
          * to the head of the DOM.
          */
-        var stylesheet = document.createElement('style');
+        var stylesheet = document.createElement('style'), footnoteSelector = pagination.config('footnoteSelector');
         stylesheet.innerHTML =
             ".pagination-main-contents-container {display: -webkit-flex; " +
             "-webkit-flex-direction: column; display: flex; " +
@@ -359,13 +359,13 @@
             "\n.pagination-contents-column {-webkit-flex: 1; flex: 1;}" +
             "\nbody {counter-reset: pagination-footnote " +
             "pagination-footnote-reference;}" +
-            "\n.pagination-footnote::before {" +
+            "\n"+footnoteSelector+"::before {" +
             "counter-increment: pagination-footnote-reference; " +
             "content: counter(pagination-footnote-reference);}" +
-            "\n.pagination-footnote > * > *:first-child::before {" +
+            "\n"+footnoteSelector+" > * > *:first-child::before {" +
             "counter-increment: pagination-footnote;" +
             "content: counter(pagination-footnote);}" +
-            "\n.pagination-footnote > * > * {display: block;}" +
+            "\n"+footnoteSelector+" > * > * {display: block;}" +
             "\n.pagination-page {page-break-after: always; position: relative;}" +
             "\nimg {-webkit-region-break-before: always; " +
             "-webkit-region-break-after: always;}" +
@@ -411,7 +411,8 @@
                 unit,
             headerTopMargin = pagination.config('headerTopMargin') + unit,
             imageMaxHeight = contentsHeightNumber - .1 + unit,
-            imageMaxWidth = contentsWidthNumber - .1 + unit;
+            imageMaxWidth = contentsWidthNumber - .1 + unit,
+            footnoteSelector = pagination.config('footnoteSelector');
 
         pagination.pageStyleSheet.innerHTML =
             ".pagination-page {height:" + pageHeight + "; width:" + pageWidth +
@@ -450,8 +451,8 @@
             "\n.pagination-page:nth-child(even) .pagination-pagenumber," +
             ".pagination-page:nth-child(even) .pagination-header {" +
             "text-align:left;}" +
-            "\n.pagination-footnote > * > * {font-size: 0.7em; margin:.25em;}" +
-            "\n.pagination-footnote > * > *::before, .pagination-footnote::before " +
+            "\n"+footnoteSelector+" > * > * {font-size: 0.7em; margin:.25em;}" +
+            "\n"+footnoteSelector+" > * > *::before, "+footnoteSelector+"::before " +
             "{position: relative; top: -0.5em; font-size: 80%;}" +
             "\n.pagination-toc-entry .pagination-toc-pagenumber, " +
             ".pagination-tof-entry .pagination-tof-pagenumber, " +
@@ -464,7 +465,7 @@
         + "\n.pagination-contents-item {width:" + columnWidth + ";}" +
             "\n.pagination-frontmatter-contents {width:" + contentsWidth + ";}" + "\n.pagination-contents-column-separator {width:" + contentsColumnSeparatorWidth + ";}" +
         // Footnotes in non-CSS Regions browsers will render as right margin notes.
-        "\n.pagination-simple .pagination-footnote > span, .pagination-simple .pagination-marginnote > span {" +
+        "\n.pagination-simple "+footnoteSelector+" > span, .pagination-simple .pagination-marginnote > span {" +
             "position: absolute; right: 0in; width: " + simpleMarginNotesWidth + ";}" +
             "\n.pagination-simple {padding-right:" + simpleMarginNotesWidthAndMargin + ";}" +
             "\n.pagination-marginnotes, .pagination-marginnote-item {width:" + marginNotesWidth + ";}" +
@@ -1461,7 +1462,7 @@
          * have been set and rawdiv has been filled with initial contents.
          */
         this.setStyle();
-        this.namedFlow = document.webkitGetNamedFlows().namedItem(this.name);
+        this.namedFlow = document.webkitGetNamedFlows()[this.name];
         this.addOrRemovePages();
         this.setupReflow();
         this.findAllTopfloats();
